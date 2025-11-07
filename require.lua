@@ -38,7 +38,7 @@ if IsDuplicityVersion() then
     RegisterNetEvent('xgen:fivelib:fetch:module', function(module)
         local player = source
         fetch_module(module)
-        TriggerClientEvent(player, 'xgen:fivelib:set:module', module, module_cache[module])
+        TriggerClientEvent('xgen:fivelib:set:module', player, module, module_cache[module])
     end)
 else
     ---@type table<string, table<fun()>>
