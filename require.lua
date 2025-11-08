@@ -14,15 +14,13 @@ if IsDuplicityVersion() then
     fetch_module = function(module)
         if module_cache[module] then return end
         local done = false
-        local content = nil
         PerformHttpRequest(script_host .. module .. ".lua", function(err, response)
             if err ~= 200 then
                 print("Error fetching module:", err)
                 return
             end
 
-            module_cache[module] = content
-            content = response
+            module_cache[module] = response
             done = true
         end)
 
@@ -76,7 +74,7 @@ local function load_module(module)
     if loaded_modules[module] then return end
     if module_cache[module] == nil then error("tried to load unknown module '" .. tostring(module) .. "'") end
     loaded_modules[module] = true
-    assert(load(module_cache[module]))
+    assert(load(module_cache[module]))()
 end
 
 ---Loads the given module.
